@@ -1,10 +1,11 @@
-FROM n8nio/n8n:latest
+FROM n8n.io/n8n:latest
 
 USER root
-RUN apt-get update && apt-get install -y python3 python3-pip && \
+RUN apk add --no-cache python3 py3-pip && \
     pip3 install --no-cache-dir instagrapi && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    rm -rf /var/cache/apk/*
 
 USER node
 WORKDIR /data
-CMD ["n8n"]
+RUN echo '#!/bin/sh\nexec n8n worker' > /data/start.sh && chmod +x /data/start.sh
+CMD ["/data/start.sh"]
