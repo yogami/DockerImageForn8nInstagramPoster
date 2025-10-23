@@ -7,5 +7,5 @@ RUN apk add --no-cache python3 py3-pip && \
 
 USER node
 WORKDIR /data
-RUN echo '#!/bin/sh\nexec n8n worker' > /data/start.sh && chmod +x /data/start.sh
-CMD ["/data/start.sh"]
+RUN echo '#!/bin/sh\nexec n8n worker' > /start.sh && chmod +x /start.sh
+CMD ["/start.sh"]
