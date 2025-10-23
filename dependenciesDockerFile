@@ -1,11 +1,10 @@
 FROM n8n.io/n8n:latest
-
 USER root
-RUN apk add --no-cache python3 py3-pip && \
-    pip3 install --no-cache-dir instagrapi && \
-    rm -rf /var/cache/apk/*
-
+RUN apk add --no-cache python3 py3-pip && 
+pip3 install --no-cache-dir instagrapi && 
+rm -rf /var/cache/apk/*
 USER node
 WORKDIR /data
-RUN echo '#!/bin/sh\nexec n8n worker' > /start.sh && chmod +x /start.sh
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 CMD ["/start.sh"]
